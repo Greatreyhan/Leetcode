@@ -8,8 +8,15 @@ import (
 )
 
 func isPalindrome(x int) bool {
-	test := strconv.Itoa(x)
-	fmt.Printf("%T", test)
+	if x < 0 {
+		return false
+	}
+	arr := strconv.Itoa(x)
+	for i := 0; i < len(arr); i++ {
+		if string(arr[i]) != string(arr[len(arr)-i-1]) {
+			return false
+		}
+	}
 	return true
 }
 
@@ -19,8 +26,8 @@ func Test2(t *testing.T) {
 		expected bool
 	}{
 		{x: 121, expected: true},
-		// {x: -121, expected: false},
-		// {x: 10, expected: false},
+		{x: -121, expected: false},
+		{x: 10, expected: false},
 	}
 
 	for _, tt := range tests {
