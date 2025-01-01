@@ -1,15 +1,16 @@
 package leetcode
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func shortest_str(strs []string) int {
-	l := 0
+	l := 9999
 	for _, s := range strs {
-		if l > len(s) || l == 0 {
+		if l > len(s) {
 			l = len(s)
 		}
 	}
@@ -19,7 +20,7 @@ func shortest_str(strs []string) int {
 func longestCommonPrefix(strs []string) string {
 	str := ""
 	shrtest := shortest_str(strs)
-
+	fmt.Println(shrtest)
 	last_c := ""
 	for i := 0; i < shrtest; i++ {
 		for _, s := range strs {
@@ -49,6 +50,8 @@ func Test4(t *testing.T) {
 	}{
 		{x: []string{"flower", "flow", "flight"}, expected: "fl"},
 		{x: []string{"dog", "racecar", "car"}, expected: ""},
+		{x: []string{"a"}, expected: "a"},
+		{x: []string{"", "b"}, expected: ""},
 	}
 
 	for _, tt := range test4 {
