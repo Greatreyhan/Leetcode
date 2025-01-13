@@ -1,22 +1,38 @@
 package leetcode
 
 import (
-	"strconv"
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func addBinary(a string, b string) string {
-	anum, err := strconv.ParseInt(a, 2, 64)
-	if err != nil {
-		panic(err)
+	i, j := len(a)-1, len(b)-1
+	carry := 0
+	result := ""
+
+	for i >= 0 || j >= 0 {
+		sum := carry
+
+		if i >= 0 {
+			sum += int(a[i] - '0')
+			i--
+		}
+		if j >= 0 {
+			sum += int(b[j] - '0')
+			j--
+		}
+
+		result = fmt.Sprintf("%d%s", sum%2, result)
+		carry = sum / 2
 	}
-	bnum, err := strconv.ParseInt(b, 2, 64)
-	if err != nil {
-		panic(err)
+
+	if carry > 0 {
+		result = fmt.Sprintf("%d%s", carry, result)
 	}
-	return strconv.FormatInt(anum+bnum, 2)
+
+	return result
 }
 
 func TestAddBinary(t *testing.T) {
